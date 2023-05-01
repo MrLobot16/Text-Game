@@ -66,4 +66,3 @@ class Room():
 	def special(self, thing):
 		if thing == 'key':
 			self.allowed_movements.append('down')
-print(locations)

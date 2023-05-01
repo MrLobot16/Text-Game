@@ -26,6 +26,8 @@ def newGame():
                     file.write(f"{name}\n")
         else:
             print(f"\"{name}\" is not a valid file name.")
+    currentFile = name
+    menu()
 
 def loadGame():
     pass
@@ -47,6 +49,7 @@ def deleteSave():
             with open("saves.txt", "w") as file:
                 file.writelines(saves)
             print("File removed")
+            input()
         else:
             print("Invalid File")
 
@@ -84,6 +87,7 @@ while choice != '5':
         deleteSave()
     elif choice == '4':
         print("Game Made by Logan Haroldsen\nRoom code by Mr. Simonsen")
+        input()
     elif choice == '5':
         print("Goodbye")
     else:
