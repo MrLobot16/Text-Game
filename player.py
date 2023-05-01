@@ -31,5 +31,3 @@ def menu():
 
 
 
-menu()
-
