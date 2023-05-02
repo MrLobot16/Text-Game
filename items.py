@@ -1,7 +1,8 @@
 class item():
 	def __init__(self, name):
-		self.sprite = None
+		self.sprite = ''
 		self.name = name
+		self.smallSprite = ''
 		self.flavorText = ''
 class weapon(item):
 	def __init__(self, name):
@@ -19,6 +20,11 @@ stick = weapon('stick')
 stick.sprite = ''' \| /  
   |/   
   |    '''
+stick.smallSprite = '''
+
+
+
+'''
 itemlist += [stick]
 
 key = item('key')

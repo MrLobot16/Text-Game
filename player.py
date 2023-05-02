@@ -2,6 +2,8 @@ from roomStructure import Room, locations
 import shelve
 from items import itemlist
 import render
+from numpy import array
+from rooms import loadRooms
 
 OPTIONS = ["exit", "h", "help", "?", "w", "a", "s", "d", " ", "q", "e", "1", "2", "3", "4", "5"]
 GAMEHELP = '''
@@ -13,10 +15,28 @@ GAMEHELP = '''
 "q" --------------------- Drop Item
 "1-5" ------------------- Select Inventory
 '''
+directions = {'w':'^', '^':array([0, -1]),
+'a':'<', '<':array([-1, 0]),
+'s':'v', 'v':array([0, 1]),
+'d':'>', '>':array([1, 0]),}
+
+
+loadRooms()
+
 def save():
 	pass
-
-
+def move(dir):
+	if playerDat.dir == directions[dir]:
+		newPos = playerDat.roomPos + directions[directions[dir]]
+		roomDat = locations[str(playerDat.mapPos)].room_objects
+		if roomDat[newPos[1]][newPos[0]] != 'w':
+			locations[str(playerDat.mapPos)].room_objects[newPos[1]][newPos[0]] = 'p'
+			locations[str(playerDat.mapPos)].room_objects[playerDat.roomPos[1]][playerDat.roomPos[0]] = ' '
+			playerDat.roomPos = newPos
+		render.render()
+	else:
+		playerDat.dir = directions[dir]
+		render.render()
 def quit():
 		save = input("Would you like to save? y/n\n").lower()
 		if save in ["y", "yes"]:
@@ -36,14 +56,14 @@ def quit():
 
 
 
-def move(dir):
-	pass
-
 class player:
     def __init__(self):
         self.slot = 2
         self.health = 100
         self.maxHealth = 100
+        self.mapPos = array([0, 0, 0])
+        self.roomPos = array([1, 1])
+        self.dir = '^'
         self.inventory = [itemlist[1], itemlist[2], itemlist[0], itemlist[0], itemlist[0]]
 playerDat = player()
 

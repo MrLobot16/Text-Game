@@ -1,8 +1,0 @@
-
-
-r = Room()
-r.room_items.append('')   #items
-r.usable_items[''] = ""   #flavor text
-r.allowed_movements.append('')
-r.descriptions[((),())] = #describe when certain items are in use
-locations[(0,0,0)]=r   #where the room is in the map
