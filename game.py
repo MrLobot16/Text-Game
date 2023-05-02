@@ -1,5 +1,5 @@
 from rooms import loadRooms
-from player import menu
+
 import shelve
 import os
 import string
@@ -27,7 +27,7 @@ def newGame():
         else:
             print(f"\"{name}\" is not a valid file name.")
     currentFile = name
-    menu()
+    from player import menu
 
 def loadGame():
     pass
@@ -52,6 +52,7 @@ def deleteSave():
             input()
         else:
             print("Invalid File")
+
 
 
 
