@@ -1,3 +1,6 @@
+#This is for Usable inventory Items
+
+
 class item():
 	def __init__(self, name):
 		self.sprite = ''
@@ -7,13 +10,16 @@ class item():
 class weapon(item):
 	def __init__(self, name):
 		super().__init__(name)
+		self.hitText = {}
 
 itemlist = []
 
-empty = item('empty')
+empty = weapon('empty')
 empty.sprite = '''       
        
        '''
+empty.hitText = {'w':'With all your force you punch the wall.\nOUCH that hurt!',
+' ':'You practice some of your cool ninja skills.'}
 itemlist += [empty]
 
 stick = weapon('stick')

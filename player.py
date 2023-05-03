@@ -36,7 +36,8 @@ playerDat = player()
 loadRooms()
 
 def save():
-	pass
+	with open("saves.txt", "a") as file:
+		file.write(f"{playerDat.save}\n")
 def move(dir):
 	if playerDat.dir == directions[dir]:
 		newPos = playerDat.roomPos + directions[directions[dir]]
