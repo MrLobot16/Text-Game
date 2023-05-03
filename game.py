@@ -18,8 +18,6 @@ def newGame():
 				valid = False
 		if valid:
 			main(name)
-			with open("saves.txt", "a") as file:
-				file.write(f"{name}\n")
 		else:
 			print(f"\"{name}\" is not a valid file name.")
 	currentFile = name
