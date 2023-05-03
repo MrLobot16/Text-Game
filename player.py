@@ -31,13 +31,18 @@ class player:
 		self.save = ''
 		self.play = True
 		self.inventory = [itemlist[1], itemlist[2], itemlist[0], itemlist[0], itemlist[0]]
+
 playerDat = player()
 
 loadRooms()
 
-def save():
+def saveGame():
 	with open("saves.txt", "a") as file:
 		file.write(f"{playerDat.save}\n")
+	s = shelve.open(f'{playerDat.save}.dat')
+	s['playerDat'] = [playerDat.slot, playerDat.health, playerDat.maxHealth, playerDat.mapPos, playerDat.roomPos, playerDat.dir, playerDat.save, playerDat.inventory]
+	s.close()
+
 def move(dir):
 	if playerDat.dir == directions[dir]:
 		newPos = playerDat.roomPos + directions[directions[dir]]
@@ -55,7 +60,7 @@ def move(dir):
 def quit():
 	save = input("Would you like to save? y/n\n").lower()
 	if save in ["y", "yes"]:
-		print("Saving comming soon")
+		saveGame()
 		playerDat.play = False
 	elif save in ["n", "no"]:
 		confirm = input("Are you sure you want to quit without saving?\n")

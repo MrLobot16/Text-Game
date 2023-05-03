@@ -1,5 +1,5 @@
 from rooms import loadRooms
-from player import main
+from player import main, playerDat
 import shelve
 import os
 import string
@@ -23,7 +23,33 @@ def newGame():
 	currentFile = name
 
 def loadGame():
-	pass
+	with open("saves.txt", "r") as file:
+		print("Current saves:\n")
+		saves = []
+		for line in file:
+			print(line)
+			saves.append(line)
+		print(saves)
+	load = input("\nChoose file to load\n")
+	if load+'\n' in saves:
+		confirm = input(f"Are you sure you want to load \"{load}\"?\n")
+		if confirm in ('y', 'yes'):
+			s = shelve.open(f'{load}.dat')
+			print(s['playerDat'])
+			playerDat.slot = s['playerDat'][0] 
+			playerDat.health = s['playerDat'][1]
+			playerDat.maxHealth = s['playerDat'][2]
+			playerDat.mapPos = s['playerDat'][3]
+			playerDat.roomPos = s['playerDat'][4]
+			playerDat.dir = s['playerDat'][5]
+			playerDat.save = s['playerDat'][6]
+			input("File Succesfully opened")
+			main(playerDat.save)
+		else:
+			input("OK")
+	else:
+		input("Invalid File")
+	
 
 def deleteSave():
 	with open("saves.txt", "r") as file:
