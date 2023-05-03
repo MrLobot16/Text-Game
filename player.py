@@ -3,7 +3,8 @@ import shelve
 from items import itemlist
 import render
 from numpy import array
-from rooms import loadRooms
+from rooms import roomDat
+import rooms
 
 OPTIONS = ["exit", "h", "help", "?", "w", "a", "s", "d", " ", "q", "e", "1", "2", "3", "4", "5"]
 GAMEHELP = '''
@@ -34,13 +35,14 @@ class player:
 
 playerDat = player()
 
-loadRooms()
 
 def saveGame():
 	with open("saves.txt", "a") as file:
 		file.write(f"{playerDat.save}\n")
 	s = shelve.open(f'{playerDat.save}.dat')
 	s['playerDat'] = [playerDat.slot, playerDat.health, playerDat.maxHealth, playerDat.mapPos, playerDat.roomPos, playerDat.dir, playerDat.save, playerDat.inventory]
+	s['roomDat'] = rooms.roomDat
+	s.sync()
 	s.close()
 
 def move(dir):
@@ -80,6 +82,7 @@ def main(name):
 	playerDat.save = name
 	choice = ''
 	render.render()
+	playerDat.play = True
 	while playerDat.play:
 		while choice not in OPTIONS:
 			choice = input("What would you like to do?\n").lower()

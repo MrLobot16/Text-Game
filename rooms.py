@@ -1,8 +1,16 @@
 from roomStructure import Room, locations
 
-def loadRooms():
+roomDat = []
+
 #test room
-	test = Room()
-	test.room_objects = [['w', 'w', 'w', 'w', 'w'], ['w', ' ', 'p', ' ', 'w'], ['w', ' ', ' ', ' ', 'w'], ['w', 'w', 'w', 'w', 'w']]
-	locations['[0 0 0]'] = test
-loadRooms()
+
+test = Room('test')
+test.room_objects = [['w', 'w', 'w', 'w', 'w'], ['w', ' ', 'p', ' ', 'w'], ['w', ' ', ' ', ' ', 'w'], ['w', 'w', 'w', 'w', 'w']]
+locations['[0 0 0]'] = test
+
+def saveRooms():
+    roomDat.append(test.room_objects)
+
+def loadRooms(data):
+    print(data)
+    test.room_objects = data[0]

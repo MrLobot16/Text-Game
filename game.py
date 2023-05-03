@@ -1,4 +1,5 @@
-from rooms import loadRooms
+import rooms
+from rooms import roomDat
 from player import main, playerDat
 import shelve
 import os
@@ -35,7 +36,7 @@ def loadGame():
 		confirm = input(f"Are you sure you want to load \"{load}\"?\n")
 		if confirm in ('y', 'yes'):
 			s = shelve.open(f'{load}.dat')
-			print(s['playerDat'])
+			#Unpack player data
 			playerDat.slot = s['playerDat'][0] 
 			playerDat.health = s['playerDat'][1]
 			playerDat.maxHealth = s['playerDat'][2]
@@ -43,6 +44,11 @@ def loadGame():
 			playerDat.roomPos = s['playerDat'][4]
 			playerDat.dir = s['playerDat'][5]
 			playerDat.save = s['playerDat'][6]
+			
+			#unpack Room data
+			roomDat = s['roomDat']
+			print(roomDat)
+			rooms.loadRooms(roomDat)
 			input("File Succesfully opened")
 			main(playerDat.save)
 		else:
@@ -71,7 +77,6 @@ def deleteSave():
 			input()
 		else:
 			print("Invalid File")
-
 
 
 

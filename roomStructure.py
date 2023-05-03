@@ -28,5 +28,6 @@ obj = {"w": wall,
 
 class Room():
 	'''Room Object'''
-	def __init__(self):
+	def __init__(self, name):
 		self.room_structure = []#room object locations
+		self.name = name#room name
