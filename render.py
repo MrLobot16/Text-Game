@@ -35,7 +35,7 @@ def render():
 			screen += ' -───────- ║'
 		else:
 			screen += '           ║'
-	screen += '\n'
+	screen += '\n\n'
 	room = ''
 	roomObj = locations[str(playerDat.mapPos)].room_objects
 	for line in roomObj:
@@ -50,6 +50,3 @@ def render():
 
 
 	print(screen)
-
-if __name__ == "__render__":
-	render()

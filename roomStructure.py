@@ -16,7 +16,7 @@ wall = obj('w')
 wall.sprite = '▓'
 
 empty = obj(' ')
-empty.sprite = '░'
+empty.sprite = '·'
 
 player = obj('p')
 player.sprite = '^'
