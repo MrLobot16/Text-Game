@@ -34,6 +34,7 @@ class player:
 		self.dir = '^'
 		self.save = ''
 		self.play = True
+		self.facing = ' '
 		self.inventory = [itemlist[1], itemlist[2], itemlist[0], itemlist[0], itemlist[0]]
 
 playerDat = player()
@@ -59,9 +60,9 @@ def move(dir):
 	if playerDat.dir == directions[dir]:
 		newPos = playerDat.roomPos + directions[directions[dir]]
 		roomDat = locations[str(playerDat.mapPos)].room_objects
-		if roomDat[newPos[1]][newPos[0]] == 'w':
+		if playerDat.facing == 'w':
 			input('You scratch your head after running into the wall.')
-		elif roomDat[newPos[1]][newPos[0]] == 'e':
+		elif playerDat.facing == 'e':
 			input("Ouch! this creature bit you!")
 			playerDat.health += -5
 		else:
@@ -70,6 +71,7 @@ def move(dir):
 			playerDat.roomPos = newPos
 		render.render()
 	else:
+		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		playerDat.dir = directions[dir]
 		render.render()
 def quit():
@@ -115,3 +117,6 @@ def main(name):
 			quit()
 		else:
 			choice = ''
+		if playerDat.health <= 0:
+			input("Game over!")
+			playerDat.play = False

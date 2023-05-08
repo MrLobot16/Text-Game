@@ -11,6 +11,11 @@ class obj():
 	def __init__(self, type):
 		self.type = type
 		self.sprite = ''
+		self.dammage = 0
+		self.blockade = False
+		self.moveText = ''
+	def runInto(self):
+		pass
 
 wall = obj('w')
 wall.sprite = '▓'
