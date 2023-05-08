@@ -10,6 +10,8 @@ locations['[0 0 0]'] = test
 
 def saveRooms():
     roomDat.append(test.room_objects)
+    print(roomDat)
+    return roomDat
 
 def loadRooms(data):
     print(data)

@@ -37,11 +37,18 @@ playerDat = player()
 
 
 def saveGame():
+	with open("saves.txt", "r") as file:
+		saves = []
+		for line in file:
+			print(line)
+			saves.append(line)
+		print(saves)
 	with open("saves.txt", "a") as file:
-		file.write(f"{playerDat.save}\n")
+		if playerDat.save+'\n' not in saves:
+			file.write(f"{playerDat.save}\n")
 	s = shelve.open(f'{playerDat.save}.dat')
 	s['playerDat'] = [playerDat.slot, playerDat.health, playerDat.maxHealth, playerDat.mapPos, playerDat.roomPos, playerDat.dir, playerDat.save, playerDat.inventory]
-	s['roomDat'] = rooms.roomDat
+	s['roomDat'] = rooms.saveRooms()
 	s.sync()
 	s.close()
 
@@ -102,4 +109,3 @@ def main(name):
 			quit()
 		else:
 			choice = ''
-		print(playerDat.play)

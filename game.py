@@ -15,7 +15,7 @@ def newGame():
 		name = input("Name File:\n")
 		valid = True
 		for letter in name:
-			if letter not in valid_chars:
+			if letter not in valid_chars or name == '':
 				valid = False
 		if valid:
 			main(name)
@@ -50,6 +50,7 @@ def loadGame():
 			print(roomDat)
 			rooms.loadRooms(roomDat)
 			input("File Succesfully opened")
+			s.close()
 			main(playerDat.save)
 		else:
 			input("OK")
