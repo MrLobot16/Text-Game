@@ -23,6 +23,9 @@ directions = {'w':'^', '^':array([0, -1]),
 
 class player:
 	def __init__(self):
+		self.reset()
+	
+	def reset(self):
 		self.slot = 2
 		self.health = 100
 		self.maxHealth = 100

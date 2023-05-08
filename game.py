@@ -14,14 +14,28 @@ def newGame():
 	while valid == False:
 		name = input("Name File:\n")
 		valid = True
+		#Checks if file name contains only specified characters
 		for letter in name:
-			if letter not in valid_chars or name == '':
+			if letter not in valid_chars:
 				valid = False
-		if valid:
-			main(name)
-		else:
+		if not valid:
 			print(f"\"{name}\" is not a valid file name.")
-	currentFile = name
+		#Checks if file name is already taken
+		with open("saves.txt", "r") as file:
+			saves = []
+			for line in file:
+				saves.append(line)
+		if name+'\n' in saves:
+			valid = False
+			print(f"\"{name}\" is already taken.")
+		#checks if file name is not empty and starts game
+		if name == '':
+			print("file name cannot be empty.")
+		elif valid:
+			playerDat.reset()
+			rooms.newGameRooms()
+			main(name)
+			
 
 def loadGame():
 	with open("saves.txt", "r") as file:
@@ -30,7 +44,6 @@ def loadGame():
 		for line in file:
 			print(line)
 			saves.append(line)
-		print(saves)
 	load = input("\nChoose file to load\n")
 	if load+'\n' in saves:
 		confirm = input(f"Are you sure you want to load \"{load}\"?\n")
@@ -65,8 +78,7 @@ def deleteSave():
 		for line in file:
 			print(line)
 			saves.append(line)
-		print(saves)
-	delete = input("\nChoose file to delete\n")
+	delete = input("Choose file to delete\n")
 	if delete+'\n' in saves:
 		confirm = input(f"Are you sure you want to delete \"{delete}\"?\n")
 		if confirm in ('y', 'yes'):
@@ -74,10 +86,9 @@ def deleteSave():
 			saves.remove(delete+'\n')
 			with open("saves.txt", "w") as file:
 				file.writelines(saves)
-			print("File removed")
-			input()
+			input("File removed")
 		else:
-			print("Invalid File")
+			input("Invalid File")
 
 
 
