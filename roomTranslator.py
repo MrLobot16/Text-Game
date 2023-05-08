@@ -7,17 +7,22 @@ space = floor
 d = door
 x = door w/ exit location
 s = stairs
-i = item
+i[id] = item with id
 p = player pos
+e = enemy
 
 '''
 
 
 room = '''
-wwwww
-w   w
-w   w
-wwwww'''
+wwwwwwwwwwwwww
+w p         ww
+w      e    ww
+w           ww
+w   e       ww
+ww       e   w
+ww           w
+wwwwwwwwwwwwww'''
 
 roomLines = room.split('\n')
 print (roomLines)
@@ -30,4 +35,4 @@ for line in roomLines:
 			row.append(letter)
 		roomList.append(row)
 
-print (roomList)
+print (f'Room Dat:\n{roomList}')

@@ -9,7 +9,7 @@ MOVEMENT = {"north":array([1,0,0]),
 locations = {}
 class obj():
 	def __init__(self, type):
-		self.type = 'type'
+		self.type = type
 		self.sprite = ''
 
 wall = obj('w')
@@ -21,9 +21,14 @@ empty.sprite = '·'
 player = obj('p')
 player.sprite = '^'
 
+enemy = obj('e')
+enemy.sprite = 'M'
+
+#Dictionary of objects and their counterpart
 obj = {"w": wall,
 " ": empty,
-"p": player
+"p": player,
+"e": enemy
 }
 
 class Room():

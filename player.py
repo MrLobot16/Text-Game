@@ -59,12 +59,15 @@ def move(dir):
 	if playerDat.dir == directions[dir]:
 		newPos = playerDat.roomPos + directions[directions[dir]]
 		roomDat = locations[str(playerDat.mapPos)].room_objects
-		if roomDat[newPos[1]][newPos[0]] != 'w':
+		if roomDat[newPos[1]][newPos[0]] == 'w':
+			input('You scratch your head after running into the wall.')
+		elif roomDat[newPos[1]][newPos[0]] == 'e':
+			input("Ouch! this creature bit you!")
+			playerDat.health += -5
+		else:
 			locations[str(playerDat.mapPos)].room_objects[newPos[1]][newPos[0]] = 'p'
 			locations[str(playerDat.mapPos)].room_objects[playerDat.roomPos[1]][playerDat.roomPos[0]] = ' '
 			playerDat.roomPos = newPos
-		else:
-			input('You scratch your head after running into the wall.')
 		render.render()
 	else:
 		playerDat.dir = directions[dir]
