@@ -5,7 +5,7 @@ def render():
 	from roomStructure import locations, objId
 	#Displays inventory
 	screen = '║'
-	for x in range(1,6):
+	for x in range(5):
 		if playerDat.slot == x:
 			screen += ' -───────- ║'
 		else:
@@ -25,18 +25,20 @@ def render():
 			else:
 				itemLine += '  '
 			itemLine += itemSprite[y][x]
-			if playerDat.slot-1 == y:
+			if playerDat.slot == y:
 				itemLine += '| ║'
 			else:
 				itemLine += '  ║'
 		itemLine += '\n'
 	screen += itemLine + "║"
-	for x in range(1,6):
+	for x in range(5):
 		if playerDat.slot == x:
 			screen += ' -───────- ║'
 		else:
 			screen += '           ║'
 	screen += '\n\n'
+
+	#displays room
 	room = ''
 	roomObj = locations[str(playerDat.mapPos)].room_objects
 	for line in roomObj:

@@ -34,6 +34,7 @@ empty.sprite = '·'
 
 player = obj('p')
 player.sprite = '^'
+player.blockade = True
 
 enemy = obj('e')
 enemy.sprite = 'M'

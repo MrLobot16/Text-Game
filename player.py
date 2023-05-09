@@ -27,6 +27,7 @@ class player:
 	
 	def reset(self):
 		self.slot = 0
+		self.heal = 1
 		self.health = 100
 		self.maxHealth = 100
 		self.mapPos = array([0, 0, 0])
@@ -64,6 +65,7 @@ def move(dir):
 		newPos = playerDat.roomPos + directions[directions[dir]]
 		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		render.render()
+		gameStep()
 	else:
 		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		playerDat.dir = directions[dir]
@@ -74,6 +76,8 @@ def attack():
 		input(playerDat.inventory[playerDat.slot].hitText[playerDat.facing])
 	else:
 		input(input(empty.hitText[playerDat.facing]))
+	render.render()
+	gameStep()
 
 def quit():
 	save = input("Would you like to save? y/n\n").lower()
@@ -90,7 +94,14 @@ def quit():
 	else:
 		print("Invalid command\nGame not Quit\n")
 
-
+def gameStep():
+	from enemy import getMonsters
+	playerDat.health += playerDat.heal
+	if playerDat.health > playerDat.maxHealth:
+		playerDat.health = playerDat.maxHealth
+	monsters = getMonsters()
+	for monster in monsters:
+		monster.enemyMove()
 
 
 
@@ -111,10 +122,10 @@ def main(name):
 			input()
 		elif choice in OPTIONS[4:8]: #Move
 			move(choice)
-		elif choice in OPTIONS[8:9]:
+		elif choice in OPTIONS[8:9]: #attack
 			attack()
 		elif choice in OPTIONS[11:16]: #Inventory
-			playerDat.slot = int(choice-1)
+			playerDat.slot = int(choice)-1
 			render.render()
 		if choice == 'exit': #exit Game
 			quit()
