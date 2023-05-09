@@ -14,11 +14,20 @@ class obj():
 		self.dammage = 0
 		self.blockade = False
 		self.moveText = ''
-	def runInto(self):
-		pass
+	def runInto(self, newPos, ):
+		from player import playerDat
+		playerDat.health -= self.dammage
+		if self.blockade == False:
+			locations[str(playerDat.mapPos)].room_objects[newPos[1]][newPos[0]] = 'p'
+			locations[str(playerDat.mapPos)].room_objects[playerDat.roomPos[1]][playerDat.roomPos[0]] = ' '
+			playerDat.roomPos = newPos
+		if self.moveText != '':
+			input(self.moveText)
 
 wall = obj('w')
 wall.sprite = '▓'
+wall.blockade = True
+wall.moveText = 'You scratch your head after running into the wall.'
 
 empty = obj(' ')
 empty.sprite = '·'
@@ -28,9 +37,12 @@ player.sprite = '^'
 
 enemy = obj('e')
 enemy.sprite = 'M'
+enemy.blockade = True
+enemy.dammage = 5
+enemy.moveText = "Ouch! this creature bit you!"
 
 #Dictionary of objects and their counterpart
-obj = {"w": wall,
+objId = {"w": wall,
 " ": empty,
 "p": player,
 "e": enemy

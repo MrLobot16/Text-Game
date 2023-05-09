@@ -2,7 +2,7 @@ import math
 
 def render():
 	from player import playerDat
-	from roomStructure import locations, obj
+	from roomStructure import locations, objId
 	#Displays inventory
 	screen = '║'
 	for x in range(1,6):
@@ -41,8 +41,8 @@ def render():
 	roomObj = locations[str(playerDat.mapPos)].room_objects
 	for line in roomObj:
 		for letter in line:
-			if obj[letter].sprite != '^':
-				room += obj[letter].sprite
+			if objId[letter].sprite != '^':
+				room += objId[letter].sprite
 			else:
 				room += playerDat.dir
 		room += '\n'

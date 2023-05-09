@@ -1,4 +1,4 @@
-from roomStructure import Room, locations
+from roomStructure import Room, locations, objId
 import shelve
 from items import itemlist
 import render
@@ -57,18 +57,12 @@ def saveGame():
 	s.close()
 
 def move(dir):
+	roomDat = locations[str(playerDat.mapPos)].room_objects
+	newPos = playerDat.roomPos + directions[directions[dir]]
 	if playerDat.dir == directions[dir]:
+		objId[playerDat.facing].runInto(newPos)
 		newPos = playerDat.roomPos + directions[directions[dir]]
-		roomDat = locations[str(playerDat.mapPos)].room_objects
-		if playerDat.facing == 'w':
-			input('You scratch your head after running into the wall.')
-		elif playerDat.facing == 'e':
-			input("Ouch! this creature bit you!")
-			playerDat.health += -5
-		else:
-			locations[str(playerDat.mapPos)].room_objects[newPos[1]][newPos[0]] = 'p'
-			locations[str(playerDat.mapPos)].room_objects[playerDat.roomPos[1]][playerDat.roomPos[0]] = ' '
-			playerDat.roomPos = newPos
+		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		render.render()
 	else:
 		playerDat.facing = roomDat[newPos[1]][newPos[0]]
