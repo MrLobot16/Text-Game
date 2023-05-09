@@ -1,6 +1,6 @@
 from roomStructure import Room, locations, objId
 import shelve
-from items import itemlist
+from items import itemlist, weapon, empty
 import render
 from numpy import array
 from rooms import roomDat
@@ -26,7 +26,7 @@ class player:
 		self.reset()
 	
 	def reset(self):
-		self.slot = 2
+		self.slot = 0
 		self.health = 100
 		self.maxHealth = 100
 		self.mapPos = array([0, 0, 0])
@@ -68,6 +68,13 @@ def move(dir):
 		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		playerDat.dir = directions[dir]
 		render.render()
+
+def attack():
+	if playerDat.inventory[playerDat.slot].type == 'weapon':
+		input(playerDat.inventory[playerDat.slot].hitText[playerDat.facing])
+	else:
+		input(input(empty.hitText[playerDat.facing]))
+
 def quit():
 	save = input("Would you like to save? y/n\n").lower()
 	if save in ["y", "yes"]:
@@ -104,8 +111,10 @@ def main(name):
 			input()
 		elif choice in OPTIONS[4:8]: #Move
 			move(choice)
+		elif choice in OPTIONS[8:9]:
+			attack()
 		elif choice in OPTIONS[11:16]: #Inventory
-			playerDat.slot = int(choice)
+			playerDat.slot = int(choice-1)
 			render.render()
 		if choice == 'exit': #exit Game
 			quit()

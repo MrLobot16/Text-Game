@@ -20,7 +20,7 @@ def render():
 	for x in range(3):
 		itemLine += '║'
 		for y in range(5):
-			if playerDat.slot-1 == y:
+			if playerDat.slot == y:
 				itemLine += ' |'
 			else:
 				itemLine += '  '
