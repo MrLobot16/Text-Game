@@ -76,18 +76,15 @@ def getMonsters():
 	return monsters
 
 def spawnMonster():
-	spawnChance = math.floor(10 + 0.5*playerDat.score)
+	spawnChance = math.floor(10 + 0.25*playerDat.score)
 	roomObj = locations[str(playerDat.mapPos)].room_objects
 	for row in range(len(roomObj)):
 		for letter in range(len(roomObj[row])):
 			if roomObj[row][letter] == 's':
 				pos = array([letter, row])
-				if random.randrange(1,100) <= spawnChance:
-					x = random.randrange(-1,1)
-					y = random.randrange(-1,1)
-					#stops spawner from spawning on itself
-					if x == 0 and y == 0:
-						x = 1
-					pos += array([x,y])
-					locations[str(playerDat.mapPos)].room_objects[pos[1]][pos[0]] = 'e'
+				for x in range(3):
+					for y in range(3):
+						if random.randrange(1,100) <= spawnChance and (x != 1 and y != 1):
+							pos += array([x-1,y-1])
+							locations[str(playerDat.mapPos)].room_objects[pos[1]][pos[0]] = 'e'
 
