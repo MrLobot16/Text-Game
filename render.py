@@ -54,6 +54,8 @@ def render():
 	health = f'\nHP: {playerDat.health}/{playerDat.maxHealth}\n['
 	health += round(20*(playerDat.health/playerDat.maxHealth))*'=' + (20-round(20*(playerDat.health/playerDat.maxHealth)))*'-' + ']\n'
 	screen += health
- 
+	
+	score = f'\nSCORE: {playerDat.score}\n'
+	screen += score
 
 	print(screen)

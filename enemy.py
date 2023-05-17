@@ -3,6 +3,7 @@ from roomStructure import locations, objId
 from player import playerDat
 import random
 from numpy import array
+import math
 
 class monster():
 	def __init__(self, pos, type):
@@ -75,12 +76,13 @@ def getMonsters():
 	return monsters
 
 def spawnMonster():
+	spawnChance = math.floor(10 + 0.5*playerDat.score)
 	roomObj = locations[str(playerDat.mapPos)].room_objects
 	for row in range(len(roomObj)):
 		for letter in range(len(roomObj[row])):
 			if roomObj[row][letter] == 's':
 				pos = array([letter, row])
-				if random.randrange(1,10) == 1:
+				if random.randrange(1,100) <= spawnChance:
 					x = random.randrange(-1,1)
 					y = random.randrange(-1,1)
 					#stops spawner from spawning on itself
