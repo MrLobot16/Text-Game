@@ -57,6 +57,8 @@ def loadGame():
 			playerDat.roomPos = s['playerDat'][4]
 			playerDat.dir = s['playerDat'][5]
 			playerDat.save = s['playerDat'][6]
+			playerDat.inventory = s['playerDat'][7]
+			playerDat.score = s["playerDat"][8]
 			
 			#unpack Room data
 			roomDat = s['roomDat']

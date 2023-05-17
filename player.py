@@ -59,7 +59,7 @@ def saveGame():
 		if playerDat.save+'\n' not in saves:
 			file.write(f"{playerDat.save}\n")
 	s = shelve.open(f'{playerDat.save}.dat')
-	s['playerDat'] = [playerDat.slot, playerDat.health, playerDat.maxHealth, playerDat.mapPos, playerDat.roomPos, playerDat.dir, playerDat.save, playerDat.inventory]
+	s['playerDat'] = [playerDat.slot, playerDat.health, playerDat.maxHealth, playerDat.mapPos, playerDat.roomPos, playerDat.dir, playerDat.save, playerDat.inventory, playerDat.score, None]
 	s['roomDat'] = rooms.saveRooms()
 	s.sync()
 	s.close()
