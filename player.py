@@ -37,6 +37,13 @@ class player:
 		self.play = True
 		self.facing = ' '
 		self.inventory = [itemlist[1], itemlist[2], itemlist[0], itemlist[0], itemlist[0]]
+		self.score = 0
+
+	def getFacing(self):
+		roomDat = locations[str(playerDat.mapPos)].room_objects
+		newPos = self.roomPos + directions[self.dir]
+		print(roomDat[newPos[1]][newPos[0]])
+		self.facing = roomDat[newPos[1]][newPos[0]]
 
 playerDat = player()
 
@@ -58,22 +65,25 @@ def saveGame():
 	s.close()
 
 def move(dir):
-	roomDat = locations[str(playerDat.mapPos)].room_objects
 	newPos = playerDat.roomPos + directions[directions[dir]]
 	if playerDat.dir == directions[dir]:
 		objId[playerDat.facing].runInto(newPos)
 		newPos = playerDat.roomPos + directions[directions[dir]]
-		playerDat.facing = roomDat[newPos[1]][newPos[0]]
-		render.render()
 		gameStep()
+		render.render()
 	else:
-		playerDat.facing = roomDat[newPos[1]][newPos[0]]
 		playerDat.dir = directions[dir]
+		playerDat.getFacing()
 		render.render()
 
 def attack():
 	if playerDat.inventory[playerDat.slot].type == 'weapon':
 		input(playerDat.inventory[playerDat.slot].hitText[playerDat.facing])
+		if playerDat.facing == 'e':
+			attackPos = playerDat.roomPos + directions[playerDat.dir]
+			locations[str(playerDat.mapPos)].room_objects[attackPos[1]][attackPos[0]] = ' '
+			playerDat.score += 1
+			
 	else:
 		input(input(empty.hitText[playerDat.facing]))
 	render.render()
@@ -95,13 +105,15 @@ def quit():
 		print("Invalid command\nGame not Quit\n")
 
 def gameStep():
-	from enemy import getMonsters
+	from enemy import getMonsters, spawnMonster
 	playerDat.health += playerDat.heal
 	if playerDat.health > playerDat.maxHealth:
 		playerDat.health = playerDat.maxHealth
 	monsters = getMonsters()
 	for monster in monsters:
 		monster.enemyMove()
+	spawnMonster()
+	playerDat.getFacing()
 
 
 

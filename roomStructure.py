@@ -42,11 +42,16 @@ enemy.blockade = True
 enemy.dammage = 5
 enemy.moveText = "Ouch! this creature bit you!"
 
+spawner = obj('s')
+spawner.sprite = '#'
+spawner.blockade = True
+
 #Dictionary of objects and their counterpart
 objId = {"w": wall,
 " ": empty,
 "p": player,
-"e": enemy
+"e": enemy,
+"s": spawner
 }
 
 class Room():

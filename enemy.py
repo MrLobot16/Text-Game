@@ -8,8 +8,7 @@ class monster():
 	def __init__(self, pos, type):
 		self.pos = pos
 		self.type = type
-		self.health = 10
-		self.moveChance = 100
+		self.moveChance = 10 + 1 * playerDat.score
 	def enemyMove(self):
 		moved = random.randrange(1, 100)
 		monstersHit = 0
@@ -19,7 +18,7 @@ class monster():
 			y, x = 0, 0
 			if moveDir == 1:
 				if playerDat.roomPos[1] - self.pos[1] < 0:
-					#print('left')
+					#('left')
 					y = -1
 				elif playerDat.roomPos[1] - self.pos[1] > 0:
 					#print('right')
@@ -74,3 +73,19 @@ def getMonsters():
 				newMonster = monster(pos, type)
 				monsters.append(newMonster)
 	return monsters
+
+def spawnMonster():
+	roomObj = locations[str(playerDat.mapPos)].room_objects
+	for row in range(len(roomObj)):
+		for letter in range(len(roomObj[row])):
+			if roomObj[row][letter] == 's':
+				pos = array([letter, row])
+				if random.randrange(1,10) == 1:
+					x = random.randrange(-1,1)
+					y = random.randrange(-1,1)
+					#stops spawner from spawning on itself
+					if x == 0 and y == 0:
+						x = 1
+					pos += array([x,y])
+					locations[str(playerDat.mapPos)].room_objects[pos[1]][pos[0]] = 'e'
+
